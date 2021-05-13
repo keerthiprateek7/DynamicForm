@@ -14,8 +14,8 @@ import Grid from '@material-ui/core/Grid';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles';
-
 import CustomForm from './CustomFormComponent';
+import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function InputForm(){
-
+    const history = useHistory();
     const classes = useStyles();
     // const [title, settitle] = useState('');
     // const [fieldType, setfieldType] = useState('TextField')
@@ -43,6 +43,7 @@ function InputForm(){
         setformDetails({'title': e.target.value, 'fields': inputFields});
     }
     const handleChangeField = (index, e) => {
+        //console.log(index)
         const values = [...inputFields];
         values[index][e.target.name] = e.target.value;
         setformDetails({'title': formTitle, 'fields': values});
@@ -50,7 +51,12 @@ function InputForm(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form Details : ", formDetails);
+        //console.log("Form Details : ", formDetails);
+        history.push({
+            pathname:'/form', 
+            data:formDetails
+        })
+        
     }
 
     const updateFormDetails = (index, vals, formTitle) => {
@@ -71,6 +77,7 @@ function InputForm(){
 
     }
 
+    //console.log(formDetails)
     return (
         <div className="CustomForm">
             <form onSubmit={handleSubmit}>
@@ -85,6 +92,7 @@ function InputForm(){
                     />
                 </FormControl>
                 { inputFields.map((inputField, index) => (
+                    
                     <Box className={classes.root} boxShadow={0} key={index}>
                         <Card variant="outlined" className={classes.root}>
                             <Grid container spacing={2}>
@@ -140,6 +148,8 @@ function InputForm(){
                     onClick={(e) => handleSubmit(e)}
                 >Create Form</Button>               
             </form>
+
+            
         </div>
     );
 }
