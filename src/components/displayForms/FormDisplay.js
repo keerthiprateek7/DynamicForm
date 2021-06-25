@@ -15,25 +15,26 @@ import FormRadio from "../displayFields/RadioDispComponent";
 import savedForms from "../displayFields/savedSamples";
 
 const FormField = (props) => {
+    //console.log(props)
     
-    const {index, fieldType, question, options, classes, control, setValue} = props;
+    const {fieldType, question, options, classes, control, setValue} = props;
     //console.log(setValue)
     switch(fieldType){
         case "TextField":
             return(
-                <FormInput question={question} name={"q"+index} label={"q"+index} classes={classes} control={control}/>
+                <FormInput question={question} name={question} classes={classes} control={control}/>
             );
         case "CheckBox":
             return (
-                <FormCheckbox question={question} name={"q"+index} options={options} classes={classes} control={control} setValue={setValue}/>
+                <FormCheckbox question={question} name={question} options={options} classes={classes} control={control} setValue={setValue}/>
             );
         case "RadioButton":
             return (
-                <FormRadio question={question} name={"q"+index} options={options} classes={classes} control={control}/>
+                <FormRadio question={question} name={question} options={options} classes={classes} control={control}/>
             );
         default:
             return (
-                <FormInput question={question} name={"q"+index} label={"q"+index} classes={classes} control={control}/>  
+                <FormInput question={question} name={question}  classes={classes} control={control}/>  
             );
     }
 };
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function FormDisplay(props){
-    //console.log(props.location.data)
+    console.log(props)
     const classes= useStyles();
     const { control, handleSubmit, setValue } = useForm();
     
@@ -84,10 +85,9 @@ function FormDisplay(props){
                                 </Typography>
                             </Grid>
                             <Divider/>
-                            {props.location.data.fields.map((field, index)=>(
-                                <Grid key={index} item xs={11}>
+                            {props.location.data.fields.map((field)=>(
+                                <Grid  item xs={11}>
                                     <FormField 
-                                        index={index}
                                         fieldType={field.field} 
                                         question={field.question} 
                                         options={field.option}

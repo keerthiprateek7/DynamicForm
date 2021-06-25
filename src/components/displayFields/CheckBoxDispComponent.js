@@ -29,9 +29,8 @@ function FormCheckBox(props) {
       <FormControl>
         <FormLabel>{question}</FormLabel>
         <FormGroup>
-          {options.map((option, index)=>(
+          {options.map((option)=>(
             <FormControlLabel
-              key={index}
               label={option}
               control={
                 <Controller
